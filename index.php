@@ -8,9 +8,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <title>Document</title>
 </head>
 <body>
+    <?php
+        //import du menu
+        include './menu.php';
+    ?>
     <h3>Liste des pseudos :</h3>
     <?php
         //stockage dans liste des pseudos (liste d'objets)
@@ -27,6 +33,16 @@
         <input type="text" name="pseudo_users">
         <p><input type="submit" value="Afficher"></p>
     </form>
+    <!--gestion des erreurs-->
+    <?php
+        if(isset($_GET['deconnected'])){
+            echo '<p class="error">L\'utilisateur à été déconnecté</p>';
+        }
+        if(isset($_GET['error'])){
+            echo '<p class="error">Les informations de connexion sont incorrectes</p>';
+        }
+        
+    ?>
     <!-- Afficher les informations depuis le pseudo --->
     <?php
         //test récupération du pseudo :
@@ -46,6 +62,5 @@
             }
         }
     ?>
-    <a href="createUser.php">Ajouter un utilisateur</a>
 </body>
 </html>

@@ -42,16 +42,47 @@
     function addPseudo($bdd, $pseudo, $mail, $mdp){
         try{
             //requête sql
-            $sql = "INSERT INTO users(pseudo_users, mail_users, password_users) VALUES
-            (:pseudo_users, :mail_users, :password_users)";
-            //péparation de la requête
+            $sql = "INSERT INTO users(pseudo_users, mail_users, password_users)
+            VALUES(:pseudo_users, :mail_users, :password_users)";
             $req = $bdd->prepare($sql);
-            //exécution de la requête (ajouter un utilisateur -> users)
             $result = $req->execute(array(
                 'pseudo_users' => $pseudo,
                 'mail_users' => $mail,
                 'password_users' => $mdp
                 ));
+        }
+        catch(Exception $e)
+        {
+            //affichage d'une exception en cas d’erreur
+            die('Erreur : '.$e->getMessage());
+        }
+    }
+    //connexion
+    function connexion($bdd,$mail, $mdp){
+        try{
+            //requête sql
+            $sql = "SELECT * FROM users WHERE mail_users = :mail_users 
+            AND password_users = :password_users" ;
+            //péparation de la requête
+            $req = $bdd->prepare($sql);
+            //exécution de la requête
+            $req->execute(array(
+                'mail_users' => $mail,
+                'password_users' => $mdp
+                ));
+            //parcours du résultat de la requête
+            while($data = $req->fetch()){
+                //test si on vérifie mail_users et password_users
+                if($data['mail_users'] == $mail AND $data['password_users'] == $mdp){
+                    //retourne vrai (true)
+                    return true;
+                }
+                //sinon
+                else{
+                    //retourne faux (false)
+                    return false;
+                }
+            }
         }
         catch(Exception $e)
         {

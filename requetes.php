@@ -38,4 +38,25 @@
             die('Erreur : '.$e->getMessage());
         }
     }
+    //fonction ajouter un utilisateur en bdd
+    function addPseudo($bdd, $pseudo, $mail, $mdp){
+        try{
+            //requête sql
+            $sql = "INSERT INTO users(pseudo_users, mail_users, password_users) VALUES
+            (:pseudo_users, :mail_users, :password_users)";
+            //péparation de la requête
+            $req = $bdd->prepare($sql);
+            //exécution de la requête (ajouter un utilisateur -> users)
+            $result = $req->execute(array(
+                'pseudo_users' => $pseudo,
+                'mail_users' => $mail,
+                'password_users' => $mdp
+                ));
+        }
+        catch(Exception $e)
+        {
+            //affichage d'une exception en cas d’erreur
+            die('Erreur : '.$e->getMessage());
+        }
+    }
 ?>

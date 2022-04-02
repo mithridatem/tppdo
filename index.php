@@ -37,7 +37,7 @@
             if(!empty($pseudo)){
                 foreach($pseudo as $key){
                 //affichage les informations depuis le pseudo(depuis objet)
-                echo '<p>Pseudo : '.$key->pseudo_users.' mail : '.$key->mail_users.'</p>';
+                echo '<p>Pseudo : '.$key->pseudo_users.', mail : '.$key->mail_users.'</p>';
                 }
             }
             //test si le pseudo n'existe pas 
@@ -46,5 +46,6 @@
             }
         }
     ?>
+    <a href="createUser.php">Ajouter un utilisateur</a>
 </body>
 </html>
